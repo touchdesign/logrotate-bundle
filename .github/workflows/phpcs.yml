@@ -1,0 +1,20 @@
+name: "CI"
+
+on:
+  pull_request:
+    paths:
+      - "**.php"
+      - "phpcs.xml"
+      - ".github/workflows/phpcs.yml"
+
+jobs:
+  run-phpcs:
+    runs-on: ubuntu-latest
+    container:
+      image:  prooph/composer:7.2
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install vendors
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      - name: Lint php
+        run: composer lint:php

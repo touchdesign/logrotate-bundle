@@ -1,0 +1,6 @@
+services:
+  Touchdesign\LogrotateBundle\:
+    resource: '../../../src/*'
+    autowire: true
+    autoconfigure: true
+    exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
