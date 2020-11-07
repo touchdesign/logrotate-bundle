@@ -9,3 +9,7 @@ services:
     autoconfigure: true
     arguments:
       $keep: '%keep%'
+  Touchdesign\LogrotateBundle\Command\LogrotatePurgeCommand:
+    class: Touchdesign\LogrotateBundle\Command\LogrotatePurgeCommand
+    autowire: true
+    autoconfigure: true

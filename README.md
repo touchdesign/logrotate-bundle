@@ -7,7 +7,8 @@
 ## Usage
 
     bin/console touch:logrotate:rotate /var/log/example.log [--keep=5]
-
+    bin/console touch:logrotate:purge /var/log/example.log
+    
 ## Configure
     
 Can easily configured by EnvVars:
