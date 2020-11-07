@@ -1,6 +1,11 @@
+parameters:
+  _keep: 3
+  keep: '%env(default:_keep:int:LOGROTATE_KEEP)%'
+
 services:
-  Touchdesign\LogrotateBundle\:
-    resource: '../../../src/*'
+  Touchdesign\LogrotateBundle\Command\LogrotateRotateCommand:
+    class: Touchdesign\LogrotateBundle\Command\LogrotateRotateCommand
     autowire: true
     autoconfigure: true
-    exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+    arguments:
+      $keep: '%keep%'
