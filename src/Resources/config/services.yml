@@ -1,0 +1,15 @@
+parameters:
+  _keep: 3
+  keep: '%env(default:_keep:int:LOGROTATE_KEEP)%'
+
+services:
+  Touchdesign\LogrotateBundle\Command\LogrotateRotateCommand:
+    class: Touchdesign\LogrotateBundle\Command\LogrotateRotateCommand
+    autowire: true
+    autoconfigure: true
+    arguments:
+      $keep: '%keep%'
+  Touchdesign\LogrotateBundle\Command\LogrotatePurgeCommand:
+    class: Touchdesign\LogrotateBundle\Command\LogrotatePurgeCommand
+    autowire: true
+    autoconfigure: true
