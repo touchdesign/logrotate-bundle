@@ -1,13 +1,9 @@
-name: "CI:lintyaml"
+name: "CI:LintAndTest"
 
-on:
-  pull_request:
-    paths:
-      - "**.yaml"
-      - ".github/workflows/phpcs.yml"
+on: [pull_request]
 
 jobs:
-  run-phpcs:
+  run-phpunit:
     runs-on: ubuntu-latest
     container:
       image:  prooph/composer:7.2
@@ -17,3 +13,7 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
       - name: Lint yaml
         run: composer lint:yaml
+      - name: Lint php
+        run: composer lint:php
+      - name: Unit tests
+        run: composer tests
