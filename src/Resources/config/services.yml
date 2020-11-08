@@ -9,7 +9,11 @@ services:
     autoconfigure: true
     arguments:
       $keep: '%keep%'
+    calls:
+      - setLogger: ['@logger']
   Touchdesign\LogrotateBundle\Command\LogrotatePurgeCommand:
     class: Touchdesign\LogrotateBundle\Command\LogrotatePurgeCommand
     autowire: true
     autoconfigure: true
+    calls:
+      - setLogger: ['@logger']

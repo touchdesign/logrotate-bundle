@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Touchdesign\LogrotateBundle\Command;
 
+use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,6 +18,8 @@ use Touchdesign\Logrotate\Worker\PurgeWorker;
  */
 class LogrotatePurgeCommand extends Command
 {
+    use LoggerAwareTrait;
+
     /**
      * @var string path to log file
      */
@@ -52,7 +55,9 @@ class LogrotatePurgeCommand extends Command
             $loader = (new LogfileLoader($this->logfile))
         );
 
-        if ($count = \iterator_count($loader->all())) {
+        $loader->setLogger($this->logger);
+
+        if ($count = $loader->all()->count()) {
             if (!$io->confirm(
                 sprintf(
                     'Sure you will purge "%d" log files for "%s"?',
