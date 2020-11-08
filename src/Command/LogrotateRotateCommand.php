@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Touchdesign\LogrotateBundle\Command;
 
+use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,6 +19,8 @@ use Touchdesign\Logrotate\Worker\RotateWorker;
  */
 class LogrotateRotateCommand extends Command
 {
+    use LoggerAwareTrait;
+
     /**
      * @var string path to log file
      */
@@ -65,8 +68,10 @@ class LogrotateRotateCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $worker = new RotateWorker(
-            (new LogfileLoader($this->logfile))
+            $loader = (new LogfileLoader($this->logfile))
         );
+
+        $loader->setLogger($this->logger);
 
         $worker->run($this->keep);
 
